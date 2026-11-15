@@ -31,11 +31,7 @@ const RoyalLockIllustration: React.FC<{ unlocked?: boolean }> = ({
         <stop offset="100%" stopColor="#9F7C1F" />
       </linearGradient>
     </defs>
-
-    {/* Soft Halo */}
     <circle cx="48" cy="54" r="34" fill="#FDE8EF" fillOpacity="0.6" />
-
-    {/* Shackle */}
     <path
       d={
         unlocked
@@ -46,8 +42,6 @@ const RoyalLockIllustration: React.FC<{ unlocked?: boolean }> = ({
       strokeWidth="5"
       strokeLinecap="round"
     />
-
-    {/* Lock Body */}
     <rect
       x="22"
       y="41"
@@ -58,8 +52,6 @@ const RoyalLockIllustration: React.FC<{ unlocked?: boolean }> = ({
       stroke="#B98744"
       strokeWidth="2"
     />
-
-    {/* Inner Pearl Frame */}
     <rect
       x="27"
       y="46"
@@ -70,14 +62,23 @@ const RoyalLockIllustration: React.FC<{ unlocked?: boolean }> = ({
       strokeOpacity="0.7"
       strokeWidth="1.2"
     />
-
-    {/* Heart Keyhole */}
     <path
       d="M48 68C48 68 41 62.8 41 57.9C41 55.4 42.9 53.6 45.1 53.6C46.5 53.6 47.5 54.3 48 55.3C48.5 54.3 49.5 53.6 50.9 53.6C53.1 53.6 55 55.4 55 57.9C55 62.8 48 68 48 68Z"
       fill="#3A232E"
     />
   </svg>
 );
+
+// الرسالة السرية اللي هتظهر
+const SECRET_LETTER: UnlockedLetter = {
+  heading: 'To My Dearest Princess',
+  paragraphs: [
+    'أنا مش عارف أقولك إيه بصراحة، بس كل سنة وإنتي طيبة يا أجمل برنسيسة في الدنيا.',
+    'يمكن الكلام ميكونش كتير، بس اللي أنا متأكد منه إنك تستاهلي كل حاجة حلوة في الدنيا، وربنا يديمك في حياتي ومنورة عليا دايماً.',
+    'عقبال 100 سنة وإنتي كده، بتضحكي وبتزعقي وبتعملي دراما، ومحدش يقدر يزعلك أبداً. ♡',
+  ],
+  signature: '— Person U Know ♡',
+};
 
 export const PrivateMessageSection: React.FC = () => {
   const prefersReduced = useReducedMotion();
@@ -88,7 +89,7 @@ export const PrivateMessageSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [letter, setLetter] = useState<UnlockedLetter | null>(null);
 
-  const handleUnlock = async (e: React.FormEvent) => {
+  const handleUnlock = (e: React.FormEvent) => {
     e.preventDefault();
     if (!password.trim()) {
       setError('Not quite, this little secret is reserved for Yzwy! ♡');
@@ -98,33 +99,16 @@ export const PrivateMessageSection: React.FC = () => {
     setIsSubmitting(true);
     setError('');
 
-    try {
-      const response = await fetch('/api/private-letter/unlock', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      });
-
-      const data = (await response.json()) as {
-        unlocked?: boolean;
-        error?: string;
-        letter?: UnlockedLetter;
-      };
-
-      if (!response.ok || !data.unlocked || !data.letter) {
-        setError(
-          data.error || 'Not quite, this little secret is reserved for Yzwy! ♡'
-        );
-        return;
+    // التحقق من الباسورد في المتصفح مباشرة (من غير سيرفر)
+    setTimeout(() => {
+      if (password.trim() === 'Kochy') {
+        setLetter(SECRET_LETTER);
+        setPassword('');
+      } else {
+        setError('Not quite, this little secret is reserved for Yzwy! ♡');
       }
-
-      setLetter(data.letter);
-      setPassword('');
-    } catch {
-      setError('Unable to verify the secret right now. Please try again.');
-    } finally {
       setIsSubmitting(false);
-    }
+    }, 600); // تأخير بسيط عشان يبان زي اللودينج
   };
 
   const handleRelock = () => {
