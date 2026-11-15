@@ -1,0 +1,6 @@
+{
+  "name": "Princess Yzwy Birthday",
+  "description": "A royal luxury birthday celebration website crafted for Princess Yzwy — celebrating her grace, engineering brilliance, and birthday joy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
