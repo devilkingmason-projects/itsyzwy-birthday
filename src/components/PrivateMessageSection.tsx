@@ -104,7 +104,7 @@ export const PrivateMessageSection: React.FC = () => {
 
     // التحقق من الباسورد في المتصفح مباشرة (من غير سيرفر)
     setTimeout(() => {
-      if (password.trim() === 'Kochy') {
+      if (password.trim().toLowerCase() === 'kochy') {
         setLetter(SECRET_LETTER);
         setPassword('');
       } else {
