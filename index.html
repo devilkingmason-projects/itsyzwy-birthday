@@ -25,5 +25,21 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- كود إخفاء شعار Netlify -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const removeNetlifyBadge = () => {
+          const badge = document.querySelector('a[href*="netlify.com"], #netlify-badge, .netlify-badge, [id^="netlify"]');
+          if (badge) {
+            badge.style.setProperty('display', 'none', 'important');
+            badge.remove();
+          }
+        };
+        removeNetlifyBadge();
+        setTimeout(removeNetlifyBadge, 1000);
+        setTimeout(removeNetlifyBadge, 3000);
+      });
+    </script>
   </body>
 </html>
