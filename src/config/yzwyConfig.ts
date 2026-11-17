@@ -34,7 +34,7 @@ export const yzwyConfig = {
   brand: {
     name: 'Princess Yzwy',
     monogram: 'Y',
-    nextBirthdayIso: '2027-11-15T00:00:00',
+    nextBirthdayIso: '2027-11-16T00:00:00',
     celebrationMode: true,
   },
   hero: {
@@ -65,7 +65,7 @@ export const yzwyConfig = {
     closingLine: 'Happy 18th Birthday, Princess Yzwy. Keep shining, little princess. ♡',
     closingWish: 'With love and endless wishes,',
     signature: '— Person U Know ♡',
-    dateStamp: 'Issued November 15 · Royal Calendar',
+    dateStamp: 'Issued November 16 · Royal Calendar',
   },
   engineerPrincess: {
     kicker: 'Blueprint & Tiara',
